@@ -1,0 +1,2 @@
+[workspace]
+members = ["xe_core", "xe_vfs", "luminance-sdl2", "photic"]

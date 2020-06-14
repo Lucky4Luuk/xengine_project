@@ -1,0 +1,34 @@
+[package]
+name = "xe_vfs"
+version = "0.1.0"
+authors = ["Luuk van Oijen <lazyluuk.channel@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+#Libraries
+##xengine parts
+photic = { path = "../photic" }
+
+##GL
+glow = "*"
+#gl = "0.14"
+
+##Importing models
+wavefront_obj = "7.0.0"
+gltf = "0.15"
+gltf-json = "0.15"
+
+##Importing textures
+image = "0.23.2"
+
+##Logging
+log = "0.4"
+
+##Graphics
+# luminance = "0.38"
+luminance = { git = "https://github.com/Lucky4Luuk/luminance-rs" }
+
+##Vector math
+cgmath = "0.17.0"

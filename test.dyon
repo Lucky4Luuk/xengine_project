@@ -1,0 +1,9 @@
+fn main() {
+    println("Hello world!")
+}
+
+//Runs every frame
+fn update(dt) {
+    // print("deltatime: ")
+    // println(dt)
+}

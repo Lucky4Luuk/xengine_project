@@ -1,0 +1,38 @@
+[package]
+name = "xe_core"
+version = "0.1.0"
+authors = ["Luuk van Oijen <lazyluuk.channel@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+log = "0.4"
+pretty_env_logger = "0.3.1"
+
+serde = { version = "1.0.111", features = ["derive"] }
+serde_json = "1.0.55"
+
+#Scripting
+dyon = "0.44.0"
+
+#Graphics
+luminance = { git = "https://github.com/Lucky4Luuk/luminance-rs" }
+sdl2 = {version = "0.33", features = ["bundled"] }
+glow = "0.4.0"
+gl = "0.14"
+photic = { path = "../photic" }
+
+#UI
+imgui = "0.4.0"
+imgui-opengl-renderer = "0.8.0"
+imgui-sdl2 = "0.10.0"
+
+#ECS
+tiny_ecs = "0.19.4"
+
+#Math
+cgmath = "0.17.0"
+
+#VFS
+xe_vfs = { path = "../xe_vfs" }

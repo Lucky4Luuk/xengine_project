@@ -2,9 +2,11 @@
 
 use xe_core::traits::EditorTrait;
 
-pub struct Editor {
+use std::str;
 
-}
+#[repr(C)]
+#[derive(Debug, Default)]
+pub struct Editor;
 
 impl EditorTrait for Editor {
     fn name(&self) -> &'static str {
@@ -17,12 +19,12 @@ impl EditorTrait for Editor {
 }
 
 #[no_mangle]
-pub extern "C" fn new_editor() -> *mut Editor {
-    let editor = Editor {
+pub extern "C" fn new_editor() -> *mut dyn EditorTrait {
+    let editor = Editor::default();
 
-    };
+    let boxed: Box<dyn EditorTrait> = Box::new(editor);
 
-    let boxed = Box::new(editor);
+    let raw = Box::into_raw(boxed);
 
-    Box::into_raw(boxed)
+    raw
 }

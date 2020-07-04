@@ -39,10 +39,15 @@ use photic::{
 mod ui;
 // mod imgui_dyon;
 
+mod traits;
+mod editor;
+
 pub fn main() {
     pretty_env_logger::formatted_builder()
         .filter(None, log::LevelFilter::max())
         .init();
+
+    let (lib, editor) = editor::load_editor("../xe_editor.dll");
 
     let (mut surface, gl, _gl_context) = photic::initialize(1280, 720).expect("Failed to initialize photic!");
 

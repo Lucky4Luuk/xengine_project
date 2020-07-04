@@ -4,7 +4,7 @@ use std::{
 };
 
 #[macro_use] extern crate log;
-use luminance_sdl2::SDL2Surface;
+pub use luminance_sdl2::SDL2Surface;
 
 pub fn initialize(width: u32, height: u32) -> Result<(SDL2Surface, glow::Context, sdl2::video::GLContext), &'static str> {
     let surface = SDL2Surface::new(

@@ -1,11 +1,15 @@
 #[macro_use] extern crate log;
 #[macro_use] extern crate imgui;
+// #[macro_use] extern crate dyon;
+// use rhai::{Engine, Scope, RegisterFn};
+// use mun_runtime::{invoke_fn, RetryResultExt, RuntimeBuilder};
 
 use photic::pipeline::light::IsLight;
 use imgui::StyleColor;
 
 use std::{
     os::raw::c_void,
+    path::PathBuf,
 };
 
 use glow::HasContext;
@@ -33,6 +37,7 @@ use photic::{
 };
 
 mod ui;
+// mod imgui_dyon;
 
 pub fn main() {
     pretty_env_logger::formatted_builder()
@@ -58,15 +63,24 @@ pub fn main() {
 
     let mut entities = tiny_ecs::Entities::new(None, None); //TODO possibly optimise this
 
+    //Rhai
+    // let path = PathBuf::from("../test.rhai");
+    // let mut engine = Engine::new();
+    // engine.register_type::<Arc<imgui::Ui>>();
+    // let ast = engine.compile_file(path);
+    // let mut scope = Scope::new();
+
     //Dyon
-    let mut runtime = dyon::Runtime::new();
-    let mut modules: HashMap<&str, dyon::Module> = HashMap::new();
+    // let mut runtime = dyon::Runtime::new();
+    // let mut test_module = dyon::Module::new();
+    // dyon::load("../test.dyon", &mut test_module);
+    // let test_module_arc = Arc::new(test_module);
 
-    let mut test_module = dyon::Module::new();
-    dyon::load("../test.dyon", &mut test_module);
-    let test_module_arc = Arc::new(test_module);
-
-    runtime.call_str("main", &[], &test_module_arc);
+    //Mun
+    // let mut runtime = RuntimeBuilder::new("../test.mun")
+    //     .spawn()
+    //     .expect("Failed to spawn Mun's runtime!");
+    // runtime.borrow_mut().update() can detect code changes and recompile on the fly
 
     //Test stuff
     let mut mat_rough = 0.5;
@@ -82,10 +96,10 @@ pub fn main() {
     let objects = vf_mesh.get_mesh().expect("Failed to get mesh!");
 
     let shader_source = ShaderSource {
-        vertex_shader: include_str!("vertex.glsl").to_string(),
+        vertex_shader: include_str!("../../shaders/vertex.glsl").to_string(),
         geometry_shader: None,
         tesselation_shader: None,
-        fragment_shader: include_str!("fragment.glsl").to_string(),
+        fragment_shader: include_str!("../../shaders/fragment.glsl").to_string(),
     };
     let shader = Shader::from_source(shader_source);
     let texture = Texture::from_rgba_image(&gl, vf_texture.get_texture().unwrap());
@@ -176,7 +190,7 @@ pub fn main() {
 
         material_window.build(&ui, || {
             let in_rotation = ui.drag_float(im_str!("Rotation"), &mut mesh_rotation);
-            in_rotation.min(0.0).max(360.0).speed(0.01).build();
+            in_rotation.min(0.0).max(360.0).speed(0.02).build();
             ui.separator();
             let in_rough = ui.drag_float(im_str!("Roughness"), &mut material.roughness);
             in_rough.min(0.01).max(1.0).speed(0.01).build();
@@ -189,7 +203,7 @@ pub fn main() {
             gl.clear(glow::COLOR_BUFFER_BIT);
         }
 
-        runtime.call_str("update", &[dyon::Variable::f64(delta_s as f64)], &test_module_arc);
+        // runtime.call_str("update", &[dyon::Variable::f64(delta_s as f64)], &test_module_arc);
 
         x3d.prepare_frame(&gl);
         x3d.use_light(&light);

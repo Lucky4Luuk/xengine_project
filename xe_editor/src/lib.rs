@@ -19,7 +19,7 @@ impl EditorTrait for Editor {
 }
 
 #[no_mangle]
-pub extern "C" fn new_editor() -> *mut dyn EditorTrait {
+pub fn new_editor() -> *mut dyn EditorTrait {
     let editor = Editor::default();
 
     let boxed: Box<dyn EditorTrait> = Box::new(editor);

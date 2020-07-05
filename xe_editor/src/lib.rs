@@ -1,10 +1,12 @@
 ///Big idea: load editor as dll and load usercode as dll, don't fuck around with dll's outside of that lol
 
+#[macro_use]
+extern crate log;
+
 use xe_core::traits::EditorTrait;
 
 use std::str;
 
-#[repr(C)]
 #[derive(Debug, Default)]
 pub struct Editor;
 

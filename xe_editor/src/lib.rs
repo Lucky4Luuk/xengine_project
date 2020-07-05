@@ -18,6 +18,10 @@ impl EditorTrait for Editor {
     fn version(&self) -> (usize, usize, usize) {
         (0,0,1)
     }
+
+    fn ui(&self, ui: &imgui::Ui) {
+        
+    }
 }
 
 #[no_mangle]
@@ -26,7 +30,5 @@ pub fn new_editor() -> *mut dyn EditorTrait {
 
     let boxed: Box<dyn EditorTrait> = Box::new(editor);
 
-    let raw = Box::into_raw(boxed);
-
-    raw
+    Box::into_raw(boxed)
 }

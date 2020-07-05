@@ -20,7 +20,7 @@ impl EditorTrait for Editor {
     }
 
     fn ui(&self, ui: &imgui::Ui) {
-        
+
     }
 }
 
